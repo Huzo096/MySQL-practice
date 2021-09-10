@@ -3,7 +3,7 @@
 CREATE DATABASE university_store;
 USE university_store;
 
---
+
 
 CREATE TABLE customers(
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -12,7 +12,7 @@ CREATE TABLE customers(
     email VARCHAR(100)
 );
 
---
+
 
 CREATE TABLE orders(
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -22,7 +22,7 @@ CREATE TABLE orders(
     FOREIGN KEY(customer_id) REFERENCES customers(id) ON DELETE CASCADE
 );
 
---
+
 
 INSERT INTO customers (first_name, last_name, email) 
 VALUES ('Boy', 'George', 'george@gmail.com'),
@@ -31,7 +31,7 @@ VALUES ('Boy', 'George', 'george@gmail.com'),
        ('Blue', 'Steele', 'blue@gmail.com'),
        ('Bette', 'Davis', 'bette@aol.com');
 
---
+
 
 INSERT INTO orders (order_date, amount, customer_id)
 VALUES ('2016/02/10', 99.99, 1),
@@ -46,20 +46,20 @@ SELECT first_name, last_name, order_date, amount
 FROM customers
 JOIN orders ON customers.id = orders.customer_id;
 
---
+
 
 SELECT *
 FROM orders
 JOIN customers ON customers.id = orders.customer_id;
 
---
+
 
 SELECT first_name, last_name, order_date, amount 
 FROM customers
 JOIN orders ON customers.id = orders.customer_id
 ORDER BY order_date;
 
---
+
 
 SELECT first_name,last_name,UM(amount) AS total_spent
 FROM customers
@@ -67,18 +67,18 @@ JOIN orders ON customers.id = orders.customer_id
 GROUP BY orders.customer_id
 ORDER BY total_spent DESC;
 
---
+
 
 SELECT * FROM customers
 LEFT JOIN orders ON customers.id = orders.customer_id;
 
---
+
 
 SELECT first_name, last_name, order_date, amount
 FROM customers
 LEFT JOIN orders ON customers.id = orders.customer_id; 
 
---
+
 
 SELECT first_name,last_name,IFNULL(SUM(amount), 0) AS total_spent
 FROM customers
@@ -86,14 +86,14 @@ LEFT JOIN orders ON customers.id = orders.customer_id
 GROUP BY customers.id
 ORDER BY total_spent;
 
---
+
 
 SELECT IFNULL(first_name,'MISSING') AS first,IFNULL(last_name,'USER') as last,order_date,amount,SUM(amount)
 FROM customers
 RIGHT JOIN orders ON customers.id = orders.customer_id
 GROUP BY first_name, last_name;
 
---
+
 
 SELECT * FROM orders
 RIGHT JOIN customers ON customers.id = orders.customer_id;   
@@ -105,7 +105,7 @@ CREATE TABLE students (
     first_name VARCHAR(100)
 );
 
---
+
 
 CREATE TABLE papers (
     title VARCHAR(100),
@@ -116,12 +116,12 @@ CREATE TABLE papers (
         ON DELETE CASCADE
 );
 
---
+
 
 INSERT INTO students (first_name)
  VALUES ('Caleb'), ('Samantha'), ('Raj'), ('Carlos'), ('Lisa');
 
---
+
 
 INSERT INTO papers (student_id, title, grade )
  VALUES (1, 'My First Book Report', 60),
@@ -130,20 +130,20 @@ INSERT INTO papers (student_id, title, grade )
 (2, 'De Montaigne and The Art of The Essay', 98),
 (4, 'Borges and Magical Realism', 89);
 
---
+
 
 SELECT first_name, title, grade
 FROM students
 INNER JOIN papers ON students.id = papers.student_id
 ORDER BY grade DESC;
 
---
+
 
 SELECT first_name,IFNULL(title, 'MISSING'),IFNULL(grade, 0)
 FROM students
 LEFT JOIN papers ON students.id = papers.student_id;
 
---
+
 
 SELECT first_name,IFNULL(Avg(grade), 0) AS average, 
     CASE 

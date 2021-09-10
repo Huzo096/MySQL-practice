@@ -1,7 +1,7 @@
 CREATE DATABASE series;
 USE series;
 
---
+
 
 CREATE TABLE reviewers (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -9,7 +9,7 @@ CREATE TABLE reviewers (
     last_name VARCHAR(100)
 );
 
---
+
 
 CREATE TABLE series(
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -18,7 +18,7 @@ CREATE TABLE series(
     genre VARCHAR(100)
 );
 
---
+
 
 CREATE TABLE reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,7 +29,7 @@ CREATE TABLE reviews (
     FOREIGN KEY(reviewer_id) REFERENCES reviewers(id)
 );
 
---
+
 
 INSERT INTO series (title, released_year, genre) VALUES
     ('Archer', 2009, 'Animation'),
@@ -47,7 +47,7 @@ INSERT INTO series (title, released_year, genre) VALUES
     ('Seinfeld', 1989, 'Comedy'),
     ('Stranger Things', 2016, 'Drama');
 
---
+
 
 INSERT INTO reviewers (first_name, last_name) VALUES
     ('Thomas', 'Stoneman'),
@@ -59,7 +59,7 @@ INSERT INTO reviewers (first_name, last_name) VALUES
     ('Marlon', 'Crafford');
     
 
---
+
 
 INSERT INTO reviews(series_id, reviewer_id, rating) VALUES
     (1,1,8.0),(1,2,7.5),(1,3,8.5),(1,4,7.7),(1,5,8.9),
@@ -73,13 +73,13 @@ INSERT INTO reviews(series_id, reviewer_id, rating) VALUES
 	(9,5,4.5),(10,5,9.9),(13,3,8.0),(13,4,7.2),
     (14,2,8.5),(14,3,8.9),(14,4,8.9);
 
---
+
 
 SELECT title,rating 
 FROM series
 JOIN reviews ON series.id = reviews.series_id;
 
---
+
 
 SELECT title,AVG(rating) as avg_rating
 FROM series
@@ -87,27 +87,27 @@ JOIN reviews ON series.id = reviews.series_id
 GROUP BY series.id
 ORDER BY avg_rating;
 
---
+
 
 SELECT first_name,last_name,rating
 FROM reviewers
 INNER JOIN reviews ON reviewers.id = reviews.reviewer_id;
 
---
+
 
 SELECT title AS unreviewed_series
 FROM series
 LEFT JOIN reviews ON series.id = reviews.series_id
 WHERE rating IS NULL;
 
---
+
 
 SELECT genre,ROUND(Avg(rating), 2) AS avg_rating 
 FROM   series 
 INNER JOIN reviews ON series.id = reviews.series_id 
 GROUP  BY genre; 
 
---
+
 
 SELECT first_name,last_name COUNT(rating) AS COUNT,IFNULL(Min(rating), 0) AS MIN,
 		IFNULL(Max(rating), 0) AS MAX,ROUND(Ifnull(Avg(rating), 0), 2) AS AVG,
@@ -116,7 +116,7 @@ FROM   reviewers
 LEFT JOIN reviews  ON reviewers.id = reviews.reviewer_id 
 GROUP  BY reviewers.id; 
 
---
+
 
 SELECT title,rating,CONCAT(first_name,' ', last_name) AS reviewer
 FROM reviewers

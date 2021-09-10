@@ -3,7 +3,7 @@
 CREATE DATABASE book_shop;
 USE book_shop;
 
---
+
 
 CREATE TABLE books 
     (
@@ -17,7 +17,7 @@ CREATE TABLE books
         PRIMARY KEY(book_id)
     );
 
---
+
 
 INSERT INTO books (title, author_fname, author_lname, released_year, stock_quantity, pages)
   VALUES ('The Namesake', 'Jhumpa', 'Lahiri', 2003, 32, 291),
@@ -41,27 +41,27 @@ INSERT INTO books (title, author_fname, author_lname, released_year, stock_quant
 
 SELECT * FROM books;
 
---
+
 
 SELECT book_id FROM books;
 
---
+
 
 SELECT CONCAT (author_fname, ' ',author_lname) AS full_name FROM books;
 
---
+
 
 SELECT  DISTINCT CONCAT (author_fname, ' ',author_lname) AS full_name FROM books;
 
---
+
 
 UPDATE author_fname SET pages = 292 WHERE title = 'The Namesake';
 
---
+
 
 DELETE FROM books WHERE author_fname  = 'Neil';
 
---
+
 
 SELECT  DISTINCT CONCAT (author_fname, ' ',author_lname) AS full_name FROM books;
 
@@ -69,22 +69,22 @@ SELECT  DISTINCT CONCAT (author_fname, ' ',author_lname) AS full_name FROM books
 
 SELECT REPLACE(title, ' ', '->') AS title FROM books; 
 
---
+
 
 SELECT author_lname AS forwards,REVERSE(author_lname) AS backwards 
 FROM books;
 
---
+
 
 SELECT CONCAT(title, ' was released in ', released_year) AS blurb
 FROM books;
 
---
+
 
 SELECT title,CHAR_LENGTH(title) AS 'character count'
 FROM books;
 
---
+
 
 SELECT CONCAT(SUBSTRING(title, 1, 10), '...') AS 'short title',CONCAT(author_lname, ',', author_fname) AS author,CONCAT(stock_quantity, ' in stock') AS quantity
 FROM books;
@@ -93,35 +93,35 @@ FROM books;
 
 SELECT title FROM books WHERE title LIKE '%stories%';
 
---
+
 
 SELECT title, pages FROM books ORDER BY pages DESC LIMIT 1;
 
---
+
 
 SELECT CONCAT(title, ' - ', released_year) AS summary 
 FROM books ORDER BY released_year DESC LIMIT 3;
 
---
+
 
 SELECT title, author_lname FROM books WHERE author_lname LIKE '% %';
 
---
+
 
 SELECT title, released_year, stock_quantity 
 FROM books ORDER BY stock_quantity LIMIT 3;
 
---
+
 
 SELECT title, author_lname 
 FROM books ORDER BY author_lname, title;
 
---
+
 
 SELECT title, author_lname 
 FROM books ORDER BY 2,1;
 
---
+
 
 SELECT CONCAT('MY FAVORITE AUTHOR IS ', UPPER(author_fname),' ', UPPER(author_lname),'!') AS yell
 FROM books ORDER BY author_lname;
@@ -130,29 +130,29 @@ FROM books ORDER BY author_lname;
 
 SELECT COUNT(*) FROM books;
 
---
+
 
 SELECT released_year, COUNT(*) FROM books GROUP BY released_year;
 
---
+
 
 SELECT Sum(stock_quantity) FROM books;
 
---
+
 
 SELECT author_fname, author_lname, AVG(released_year) FROM books GROUP BY author_lname, author_fname;
 
---
+
 
 SELECT CONCAT(author_fname, ' ', author_lname) FROM books
 ORDER BY pages DESC LIMIT 1;
 
---
+
 
 SELECT pages, CONCAT(author_fname, ' ', author_lname) FROM books
 ORDER BY pages DESC;
 
---
+
 
 SELECT released_year AS year, COUNT(*) AS '# of books',AVG(pages) AS 'avg pages'
 FROM books GROUP BY released_year;
@@ -161,25 +161,25 @@ FROM books GROUP BY released_year;
 
 SELECT title, released_year FROM books WHERE released_year > 1980;
 
---
+
 
 SELECT title, author_lname FROM books WHERE author_lname IN ('Eggers','Chabon');
 
---
+
 
 SELECT title, author_lname, released_year FROM books WHERE author_lname = 'Lahiri' AND released_year > 2000;
 
---
+
 
 SELECT title, pages FROM books WHERE pages BETWEEN 100 AND 200;
 
---
+
 
 SELECT title,author_lname 
 FROM books 
 WHERE author_lname LIKE 'C%' OR author_lname LIKE 'S%';
 
---
+
 
 SELECT title,author_lname,
   CASE
@@ -190,7 +190,7 @@ SELECT title,author_lname,
   END AS TYPE
 FROM books;
 
---
+
 
 SELECT author_fname,author_lname,
   CASE
